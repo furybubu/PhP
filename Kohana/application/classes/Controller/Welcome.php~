@@ -1,0 +1,33 @@
+<?php defined('SYSPATH') or die('No direct script access.');
+
+class Controller_Welcome extends Controller_Default {
+
+        public function action_index()
+        {
+                $displayInvit = "none";
+
+                //add the navigation bar
+                $this->template->navigation = View::factory( 'navigation' );
+
+
+                //add the content
+                $this->template->bodycontent = View::factory( 'welcome' );
+                $this->template->bodycontent->invitationSuccess=$displayInvit;
+        }
+
+        /**
+       * The after() method is called after your controller action.
+       * In our template controller we override this method so that we can
+       * make any last minute modifications to the template before anything
+       * is rendered.
+       */
+      public function after()
+      {
+                //if ($this->auto_render)
+                //{
+                        //$this->template->scripts[] ="http://maps.google.com/maps/api/js?sensor=false";
+                //}
+                parent::after();
+      }
+
+} // End Welcome

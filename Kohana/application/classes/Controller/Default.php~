@@ -1,0 +1,74 @@
+<?php defined('SYSPATH') or die('No direct script access.');
+
+class Controller_Default extends Controller_Template
+{
+
+      public $template = 'default';
+
+      /**
+       * Set the default <head> data: meta,titles, CSS and JS scripts to be loaded.
+       * 
+       */
+      public function before()
+      {
+          parent::before();
+
+            $this->auto_render = TRUE;
+
+            //Open session
+            $this->session= Session::instance();
+
+            if ($this->auto_render)
+            {
+                // Initialize the title
+                $this->template->title   = 'Holyvent. Events have never been so live.';
+                //the $content variable is where the views inheriting from default will be loaded, set to empty
+                $this->template->content = '';
+
+                
+                $this->template->styles = array();
+                $this->template->js = array();
+                $this->template->meta = array();
+
+                $meta = array(
+                "keywords" => "live,events,social,geolocation",
+                "description" => "Holyvent is a platform for sharing events and live content shot with smartphones.",
+                );
+		$styles = array(
+                        'css/beta.css' => 'screen',
+                        "css/common.css" => 'screen',
+                        'https://fonts.googleapis.com/css?family=Roboto:400,100,300' => 'screen'
+                );
+
+                $js = array(
+                        "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js",
+                        "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js" ,
+                        "js/jquery.ba-cond.min.js",
+                        "js/googleanalytics.js",
+                        "js/modernizr.custom.79639.js" //the modernizr plugin 
+                );
+
+
+
+                $this->template->meta = array_merge( $this->template->meta, $meta );
+                $this->template->styles = array_merge( $this->template->styles, $styles );
+                $this->template->js = array_merge( $this->template->js, $js );
+            }
+      }
+      
+      protected function logout() {
+                $session = Session::instance();
+
+                // Delete the user id 
+                $session->delete('hv_id');
+
+      }
+
+
+      public function after()
+      {
+                parent::after();
+
+      }
+
+}
